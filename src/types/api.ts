@@ -183,15 +183,23 @@ export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
+    user: {
+      user_id?: number;
+      google_id?: number;
+      user_name?: string;
+      email?: string;
+      created_at?: string;
+      updated_at?: string;
+    };
     article: {
       id?: number;
       title?: string;
       contents?: string;
-      userID?: number;
-      userName?: string;
-      niceNum?: number;
-      createdAt?: string;
-      commentList?: components["schemas"]["comment"][];
+      user_id?: number;
+      user_name?: string;
+      nice_num?: number;
+      created_at?: string;
+      comment_list?: components["schemas"]["comment"][];
     };
     comment: {
       comment_id?: number;
