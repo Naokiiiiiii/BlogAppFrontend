@@ -5,6 +5,57 @@
 
 
 export interface paths {
+  "/user/{user_id}": {
+    /** 指定したidのユーザー情報を変更する */
+    put: {
+      parameters: {
+        path: {
+          user_id: number;
+        };
+      };
+      requestBody: {
+        content: {
+          "application/json": components["schemas"]["putUserRequest"];
+        };
+      };
+      responses: {
+        /** @description SuccessResponse */
+        200: {
+          content: never;
+        };
+        /** @description Error */
+        400: {
+          content: {
+            "application/json": components["schemas"]["error"];
+          };
+        };
+      };
+    };
+  };
+  "/token": {
+    /** IDトークン、アクセストークン、リフレッシュトークンを取得する */
+    get: {
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["getCallbackTokenRequest"];
+        };
+      };
+      responses: {
+        /** @description Successful Response */
+        200: {
+          content: {
+            "application/json": components["schemas"]["getCallbackTokenResponse"];
+          };
+        };
+        /** @description Error */
+        400: {
+          content: {
+            "application/json": components["schemas"]["error"];
+          };
+        };
+      };
+    };
+  };
   "/article": {
     /** 記事を投稿する */
     post: {
@@ -212,6 +263,17 @@ export interface components {
       article_id?: number;
       user_id?: number;
     };
+    putUserRequest: {
+      user_name?: string;
+    };
+    getCallbackTokenRequest: {
+      code?: string;
+    };
+    getCallbackTokenResponse: {
+      id_token?: string;
+      access_token?: string;
+      refresh_token?: string;
+    };
     postArticleRequest: {
       title: string;
       contents: string;
@@ -233,6 +295,9 @@ export interface components {
     postNiceRequest: {
       article_id?: number;
       user_id?: number;
+    };
+    postGoogleCallbackRequest: {
+      code?: string;
     };
     error: {
       ErrCode?: string;
