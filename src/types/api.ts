@@ -5,6 +5,25 @@
 
 
 export interface paths {
+  "/user": {
+    /** 自身のユーザー情報を返す */
+    get: {
+      responses: {
+        /** @description Successful Response */
+        200: {
+          content: {
+            "application/json": components["schemas"]["getUserResponse"];
+          };
+        };
+        /** @description Error */
+        400: {
+          content: {
+            "application/json": components["schemas"]["error"];
+          };
+        };
+      };
+    };
+  };
   "/user/{user_id}": {
     /** 指定したidのユーザー情報を変更する */
     put: {
@@ -35,7 +54,7 @@ export interface paths {
   "/token": {
     /** IDトークン、アクセストークン、リフレッシュトークンを取得する */
     get: {
-      requestBody?: {
+      requestBody: {
         content: {
           "application/json": components["schemas"]["getCallbackTokenRequest"];
         };
@@ -44,7 +63,31 @@ export interface paths {
         /** @description Successful Response */
         200: {
           content: {
-            "application/json": components["schemas"]["getCallbackTokenResponse"];
+            "application/json": components["schemas"]["token"];
+          };
+        };
+        /** @description Error */
+        400: {
+          content: {
+            "application/json": components["schemas"]["error"];
+          };
+        };
+      };
+    };
+  };
+  "/regenearte_token": {
+    /** IDトークン、アクセストークンを再取得 */
+    get: {
+      requestBody?: {
+        content: {
+          "application/json": components["schemas"]["getRegenerateTokenRequest"];
+        };
+      };
+      responses: {
+        /** @description Successful Response */
+        200: {
+          content: {
+            "application/json": components["schemas"]["token"];
           };
         };
         /** @description Error */
@@ -152,6 +195,26 @@ export interface paths {
         };
       };
     };
+    /** 指定したidの記事を削除する */
+    delete: {
+      parameters: {
+        path: {
+          article_id: number;
+        };
+      };
+      responses: {
+        /** @description SuccessResponse */
+        200: {
+          content: never;
+        };
+        /** @description Error */
+        400: {
+          content: {
+            "application/json": components["schemas"]["error"];
+          };
+        };
+      };
+    };
   };
   "/comment": {
     /** 指定した記事にコメントを登録する */
@@ -188,6 +251,26 @@ export interface paths {
       requestBody: {
         content: {
           "application/json": components["schemas"]["putCommentRequest"];
+        };
+      };
+      responses: {
+        /** @description SuccessResponse */
+        200: {
+          content: never;
+        };
+        /** @description Error */
+        400: {
+          content: {
+            "application/json": components["schemas"]["error"];
+          };
+        };
+      };
+    };
+    /** 指定したidのコメントを削除する */
+    delete: {
+      parameters: {
+        path: {
+          comment_id: number;
         };
       };
       responses: {
@@ -263,16 +346,27 @@ export interface components {
       article_id?: number;
       user_id?: number;
     };
+    token: {
+      id_token?: string;
+      access_token?: string;
+      refresh_token?: string;
+    };
+    getUserResponse: {
+      user_id?: string;
+      google_id?: string;
+      user_name?: string;
+      email?: string;
+      created_at?: string;
+      updated_at?: string;
+    };
     putUserRequest: {
       user_name?: string;
     };
     getCallbackTokenRequest: {
-      code?: string;
+      code: string;
     };
-    getCallbackTokenResponse: {
-      id_token?: string;
-      access_token?: string;
-      refresh_token?: string;
+    getRegenerateTokenRequest: {
+      refresh_token: string;
     };
     postArticleRequest: {
       title: string;
