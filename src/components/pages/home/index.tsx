@@ -1,4 +1,4 @@
-import { useSignInMutation } from '@reducers/blogApi'
+import { useTokenMutation } from '@reducers/blogApi'
 import { FC, useEffect } from 'react'
 
 export const Home: FC = () => {
@@ -8,13 +8,13 @@ export const Home: FC = () => {
 
   // const tokenHandler = new TokenHandler()
 
-  const [signIn, { error, isLoading }] = useSignInMutation()
+  const [token, { error, isLoading }] = useTokenMutation()
 
   const fetchData = async (code: string) => {
     // 認証コードをサーバーに送信
-    const result = await signIn({
+    const result = await token({
       code,
-    }).unwrap
+    })
     console.log(result)
   }
 
@@ -30,7 +30,7 @@ export const Home: FC = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Google SSO Integration</h1>
+        <h1>Login</h1>
         <button onClick={handleGoogleLogin}>Sign in with Google</button>
       </header>
     </div>

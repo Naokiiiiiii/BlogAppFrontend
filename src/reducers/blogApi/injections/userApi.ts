@@ -7,9 +7,9 @@ type SignInResponse = paths['/token']['get']['responses']['200']['content']['app
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    signIn: builder.mutation<SignInResponse, SignInParams>({
+    token: builder.mutation<SignInResponse, SignInParams>({
       query: (params) => ({
-        url: 'public/users/sign_in',
+        url: 'token',
         method: 'POST',
         body: {
           code: params.code,
@@ -19,4 +19,4 @@ export const userApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { useSignInMutation } = userApi
+export const { useTokenMutation } = userApi
