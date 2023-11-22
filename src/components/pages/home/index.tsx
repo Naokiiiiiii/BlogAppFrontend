@@ -1,6 +1,5 @@
-// import { useSignInMutation } from '@reducers/blogApi'
+import { useSignInMutation } from '@reducers/blogApi'
 import { FC, useEffect } from 'react'
-import { useSignInMutation } from '../../../reducers/blogApi'
 
 export const Home: FC = () => {
   const handleGoogleLogin = () => {
