@@ -1,4 +1,6 @@
 // import './App.css'
+import { Secured } from '@components/organisms/secured/secured'
+import { Login } from '@components/pages/login'
 import { Provider } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 import { Article } from './components/pages/articles'
@@ -8,11 +10,13 @@ import { store } from './store'
 const App = () => {
   return (
     <div>
-      <h1>Hello React Router v6</h1>
       <Provider store={store}>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/articles" element={<Article />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Secured />}>
+            <Route path="/home" element={<Home />} />
+            <Route path="/articles" element={<Article />} />
+          </Route>
         </Routes>
       </Provider>
     </div>
