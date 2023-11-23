@@ -1,4 +1,4 @@
-import { useTokenMutation } from '@reducers/blogApi'
+import { useSignInMutation } from '@reducers/blogApi'
 import { FC, useEffect } from 'react'
 
 export const Home: FC = () => {
@@ -8,7 +8,7 @@ export const Home: FC = () => {
 
   // const tokenHandler = new TokenHandler()
 
-  const [token, { error, isLoading }] = useTokenMutation()
+  const [token, { error, isLoading }] = useSignInMutation()
 
   const fetchData = async (code: string) => {
     // 認証コードをサーバーに送信
