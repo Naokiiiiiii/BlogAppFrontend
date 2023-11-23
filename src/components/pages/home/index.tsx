@@ -1,38 +1,6 @@
-import { useSignInMutation } from '@reducers/blogApi'
-import { FC, useEffect } from 'react'
+import { Box } from '@mui/material'
+import { FC } from 'react'
 
 export const Home: FC = () => {
-  const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:8080/login'
-  }
-
-  // const tokenHandler = new TokenHandler()
-
-  const [token, { error, isLoading }] = useSignInMutation()
-
-  const fetchData = async (code: string) => {
-    // 認証コードをサーバーに送信
-    const result = await token({
-      code,
-    })
-    console.log(result)
-  }
-
-  useEffect(() => {
-    // URLから認証コードを取得
-    const urlParams = new URLSearchParams(window.location.search)
-    const code = urlParams.get('code')
-    if (code) {
-      fetchData(code)
-    }
-  }, [])
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Login</h1>
-        <button onClick={handleGoogleLogin}>Sign in with Google</button>
-      </header>
-    </div>
-  )
+  return <Box>Home</Box>
 }
