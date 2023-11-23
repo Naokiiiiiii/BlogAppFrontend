@@ -353,7 +353,7 @@ export interface components {
     };
     getUserResponse: {
       user_id?: number;
-      google_id?: string;
+      google_id?: number;
       user_name?: string;
       email?: string;
       created_at?: string;
