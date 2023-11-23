@@ -2,7 +2,7 @@ import { Box, Button, Typography } from '@mui/material'
 import { useSignInMutation } from '@reducers/blogApi'
 import { FC, useEffect } from 'react'
 
-export const Home: FC = () => {
+export const Login: FC = () => {
   const handleGoogleLogin = () => {
     window.location.href = 'http://localhost:8080/login'
   }

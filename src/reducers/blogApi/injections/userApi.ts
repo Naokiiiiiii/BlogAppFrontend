@@ -1,11 +1,12 @@
 import { paths } from 'types/api'
 import { baseApi } from '../baseApi'
 
-type GetUserInfoResponse = paths['/user']['get']['responses']
+type GetUserInfoParams = {}
+type GetUserInfoResponse = paths['/user']['get']['responses']['200']['content']['application/json']
 
 export const usersApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getUser: builder.query<'', GetUserInfoResponse>({
+    getUser: builder.query<GetUserInfoResponse, GetUserInfoParams>({
       query: () => ({
         url: `user`,
       }),
