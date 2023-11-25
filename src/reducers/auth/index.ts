@@ -74,11 +74,9 @@ const authSlice = createSlice({
       state.tokens = action.payload
     })
     builder.addCase(regenerateIdToken.rejected, (state) => {
-      // note: intentionally sign out
       state.tokens = undefined
       tokenHandler.clearToken()
     })
-    //
     builder.addMatcher(authApi.endpoints.signIn.matchFulfilled, (state, action) => {
       if ('id_token' in action.payload) {
         state.tokens = {
