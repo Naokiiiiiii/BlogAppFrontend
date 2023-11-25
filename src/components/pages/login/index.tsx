@@ -1,20 +1,27 @@
 import { Box, Button, Typography } from '@mui/material'
+import { selectIsAuthenticated } from '@reducers/auth/selectors'
 import { useSignInMutation } from '@reducers/blogApi'
+import { useAppSelector } from '@store/index'
 import { FC, useEffect } from 'react'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 export const Login: FC = () => {
+  const navigate = useNavigate()
+  const isAuthenticated = useAppSelector(selectIsAuthenticated)
   const handleGoogleLogin = () => {
     window.location.href = 'http://localhost:8080/login'
   }
 
-  const [token, { error, isLoading }] = useSignInMutation()
+  if (isAuthenticated) {
+    return <Navigate to="/" />
+  }
+
+  const [getToken, { error, isLoading }] = useSignInMutation()
 
   const fetchData = async (code: string) => {
-    // 認証コードをサーバーに送信
-    const result = await token({
+    await getToken({
       code,
     })
-    console.log(result)
   }
 
   useEffect(() => {
@@ -23,6 +30,7 @@ export const Login: FC = () => {
     const code = urlParams.get('code')
     if (code) {
       fetchData(code)
+      navigate('/home')
     }
   }, [])
 
