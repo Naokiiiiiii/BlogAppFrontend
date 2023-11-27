@@ -20,9 +20,9 @@ export type Arrayable<T, K extends keyof T> = {
 const baseQuery = fetchBaseQuery({
   baseUrl,
   prepareHeaders: (headers, { getState }) => {
-    const accessToken = selectAccessToken(getState() as RootState)
-    if (accessToken) {
-      headers.set('authorization', `Bearer ${accessToken}`)
+    const idToken = selectAccessToken(getState() as RootState)
+    if (idToken) {
+      headers.set('authorization', `Bearer ${idToken}`)
     }
     return headers
   },
