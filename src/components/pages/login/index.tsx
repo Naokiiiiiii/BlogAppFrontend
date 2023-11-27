@@ -8,20 +8,19 @@ import { Navigate, useNavigate } from 'react-router-dom'
 export const Login: FC = () => {
   const navigate = useNavigate()
   const isAuthenticated = useAppSelector(selectIsAuthenticated)
+  console.log(isAuthenticated)
   const handleGoogleLogin = () => {
     window.location.href = 'http://localhost:8080/login'
   }
 
   if (isAuthenticated) {
-    return <Navigate to="/" />
+    return <Navigate to="/home" />
   }
 
   const [getToken, { error, isLoading }] = useSignInMutation()
 
   const fetchData = async (code: string) => {
-    await getToken({
-      code,
-    })
+    await getToken({ code })
   }
 
   useEffect(() => {
