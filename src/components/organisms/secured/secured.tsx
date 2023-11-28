@@ -1,4 +1,3 @@
-import { setUser } from '@reducers/auth'
 import { selectIsAuthenticated } from '@reducers/auth/selectors'
 import { usersApi } from '@reducers/blogApi/injections/userApi'
 import { useEffect } from 'react'
@@ -13,7 +12,7 @@ export const Secured = () => {
     if (!user) {
       dispatch(usersApi.endpoints.getUser.initiate({}))
         .unwrap()
-        .then((data) => dispatch(setUser(data)))
+        .then((data) => console.log(data) /*dispatch(setUser(data))*/)
         .catch((error) => {
           console.error(error)
         })
