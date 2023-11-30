@@ -1,10 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App.jsx';
-// import './index.css'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
+import App from './App.jsx'
 
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById('root')
 
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
@@ -13,7 +12,7 @@ if (rootElement) {
         <App />
       </BrowserRouter>
     </React.StrictMode>
-  );
+  )
 } else {
-  console.error('Root element not found in the document.');
+  console.error('Root element not found in the document.')
 }
