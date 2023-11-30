@@ -8,7 +8,7 @@ export const usersApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getUser: builder.query<GetUserInfoResponse, GetUserInfoParams>({
       query: () => ({
-        url: `user`,
+        url: 'user',
       }),
     }),
   }),
