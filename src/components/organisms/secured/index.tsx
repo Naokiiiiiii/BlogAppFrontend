@@ -9,15 +9,16 @@ export const Secured = () => {
   const { user } = useAppSelector((state: RootState) => state.Auth)
   const isAuthenticated = useAppSelector(selectIsAuthenticated)
   useEffect(() => {
-    if (!user) {
-      dispatch(usersApi.endpoints.getUser.initiate({}))
-        .unwrap()
-        .then((data) => console.log(data) /*dispatch(setUser(data))*/)
-        .catch((error) => {
-          console.error(error)
-        })
+    const fetchData = async () => {
+      console.log('実行')
+      if (!user) {
+        const data = await dispatch(usersApi.endpoints.getUser.initiate({})).unwrap()
+        console.log(data)
+        // dispatch(setUser(data)); // setUserを適切なアクションに変更
+      }
     }
-  })
+    fetchData()
+  }, [dispatch, user])
 
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />
 }
