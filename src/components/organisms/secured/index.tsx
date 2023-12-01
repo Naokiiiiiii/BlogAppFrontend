@@ -1,3 +1,4 @@
+import { setUser } from '@reducers/auth'
 import { selectIsAuthenticated } from '@reducers/auth/selectors'
 import { usersApi } from '@reducers/blogApi/injections/userApi'
 import { useEffect } from 'react'
@@ -13,8 +14,7 @@ export const Secured = () => {
       console.log('実行')
       if (!user) {
         const data = await dispatch(usersApi.endpoints.getUser.initiate({})).unwrap()
-        console.log(data)
-        // dispatch(setUser(data)); // setUserを適切なアクションに変更
+        dispatch(setUser(data))
       }
     }
     fetchData()
