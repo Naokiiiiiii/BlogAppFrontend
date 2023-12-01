@@ -45,7 +45,7 @@ export const initialize = createAsyncThunk<{ token: Token } | undefined>('authn/
   }
 })
 
-export const regenerateIdToken = createAsyncThunk('auth/regenerateIdToken', async () => {
+export const regenerateIdToken = createAsyncThunk('authn/regenerateIdToken', async () => {
   const token = tokenHandler.getToken()
   if (!token) {
     throw new Error('no token')
