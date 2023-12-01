@@ -3,7 +3,7 @@ import { selectIsAuthenticated } from '@reducers/auth/selectors'
 import { useSignInMutation } from '@reducers/blogApi'
 import { useAppSelector } from '@store/index'
 import { FC, useEffect } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export const Login: FC = () => {
   const navigate = useNavigate()
@@ -13,24 +13,23 @@ export const Login: FC = () => {
     window.location.href = 'http://localhost:8080/login'
   }
 
-  if (isAuthenticated) {
-    return <Navigate to="/home" />
-  }
+  // if (isAuthenticated) {
+  //   return <Navigate to="/home" />
+  // }
 
   const [getToken, { error, isLoading }] = useSignInMutation()
 
-  const fetchData = async (code: string) => {
-    await getToken({ code })
+  const getTokenAndNavigate = async (code: string) => {
+    if (code) {
+      await getToken({ code })
+      navigate('/home')
+    }
   }
 
   useEffect(() => {
-    // URLから認証コードを取得
     const urlParams = new URLSearchParams(window.location.search)
-    const code = urlParams.get('code')
-    if (code) {
-      fetchData(code)
-      navigate('/home')
-    }
+    const code = urlParams.get('code') ?? ''
+    getTokenAndNavigate(code)
   }, [])
 
   return (
