@@ -1,9 +1,7 @@
-import { regenerateIdToken } from '@reducers/auth'
-import { selectAccessToken } from '@reducers/auth/selectors'
+import { selectToken } from '@reducers/auth/selectors'
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
 import { RootState } from '@store/index'
 import { baseUrl } from '@utils/const'
-import httpStatus from 'http-status'
 
 type Camelcase<S extends string> = S extends `${infer X}_${infer Y}${infer Z}` ? `${Lowercase<X>}${Uppercase<Y>}${Camelcase<Z>}` : Lowercase<S>
 
@@ -20,7 +18,7 @@ export type Arrayable<T, K extends keyof T> = {
 const baseQuery = fetchBaseQuery({
   baseUrl,
   prepareHeaders: (headers, { getState }) => {
-    const idToken = selectAccessToken(getState() as RootState)
+    const idToken = selectToken(getState() as RootState)
     if (idToken) {
       headers.set('authorization', `Bearer ${idToken}`)
     }
@@ -44,13 +42,13 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions)
-  if (result.error && result.error.status === httpStatus.UNAUTHORIZED) {
-    const res = await api.dispatch(regenerateIdToken())
-    if (res.meta.requestStatus === 'fulfilled') {
-      // retry after refresh succeeded
-      result = await baseQuery(args, api, extraOptions)
-    }
-  }
+  // if (result.error && result.error.status === httpStatus.UNAUTHORIZED) {
+  //   const res = await api.dispatch(regenerateIdToken())
+  //   if (res.meta.requestStatus === 'fulfilled') {
+  //     // retry after refresh succeeded
+  //     result = await baseQuery(args, api, extraOptions)
+  //   }
+  // }
   return result
 }
 
