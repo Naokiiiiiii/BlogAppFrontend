@@ -1,6 +1,7 @@
 // import './App.css'
-import { Secured } from '@components/organisms/secured/secured'
+import { Secured } from '@components/organisms/secured'
 import { Login } from '@components/pages/login'
+import React from 'react'
 import { Provider } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 import { Article } from './components/pages/articles'
