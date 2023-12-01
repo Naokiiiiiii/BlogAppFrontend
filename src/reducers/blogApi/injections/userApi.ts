@@ -1,22 +1,15 @@
 import { paths } from 'types/api'
 import { baseApi } from '../baseApi'
 
-type SignInParams = paths['/token']['get']['requestBody']['content']['application/json']
+type GetUserInfoParams = {}
+type GetUserInfoResponse = paths['/user']['get']['responses']['200']['content']['application/json']
 
-type SignInResponse = paths['/token']['get']['responses']['200']['content']['application/json']
-
-export const userApi = baseApi.injectEndpoints({
+export const usersApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    signIn: builder.mutation<SignInResponse, SignInParams>({
-      query: (params) => ({
-        url: 'public/users/sign_in',
-        method: 'POST',
-        body: {
-          code: params.code,
-        },
+    getUser: builder.query<GetUserInfoResponse, GetUserInfoParams>({
+      query: () => ({
+        url: 'user',
       }),
     }),
   }),
 })
-
-export const { useSignInMutation } = userApi

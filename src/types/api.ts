@@ -352,8 +352,8 @@ export interface components {
       refresh_token?: string;
     };
     getUserResponse: {
-      user_id?: string;
-      google_id?: string;
+      user_id?: number;
+      google_id?: number;
       user_name?: string;
       email?: string;
       created_at?: string;

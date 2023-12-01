@@ -1,3 +1,4 @@
+import { authApi } from '@reducers/blogApi'
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { baseUrl } from '@utils/const'
 import { Token, TokenHandler } from '@utils/tokenHandler'
@@ -44,7 +45,7 @@ export const initialize = createAsyncThunk<{ token: Token } | undefined>('authn/
   }
 })
 
-export const regenerateIdToken = createAsyncThunk('auth/regenerateIdToken', async () => {
+export const regenerateIdToken = createAsyncThunk('authn/regenerateIdToken', async () => {
   const token = tokenHandler.getToken()
   if (!token) {
     throw new Error('no token')
@@ -73,59 +74,23 @@ const authSlice = createSlice({
       state.tokens = action.payload
     })
     builder.addCase(regenerateIdToken.rejected, (state) => {
-      // note: intentionally sign out
       state.tokens = undefined
       tokenHandler.clearToken()
     })
-    //
-    // builder.addMatcher(
-    //   publicUsersApi.endpoints.signIn.matchFulfilled,
-    //   (state, action) => {
-    //     if ('id_token' in action.payload) {
-    //       state.tokens = {
-    //         idToken: action.payload.id_token ?? '',
-    //         accessToken: action.payload.access_token ?? '',
-    //         refreshToken: action.payload.refresh_token ?? '',
-    //       };
-    //       tokenHandler.storeToken({
-    //         idToken: action.payload.id_token ?? '',
-    //         refreshToken: action.payload.refresh_token ?? '',
-    //         accessToken: action.payload.access_token ?? '',
-    //       });
-    //     }
-    //   }
-    // );
-    // builder.addMatcher(
-    //   publicUsersApi.endpoints.postUserMfaAuth.matchFulfilled,
-    //   (state, action) => {
-    //     state.tokens = {
-    //       idToken: action.payload.id_token,
-    //       accessToken: action.payload.access_token,
-    //       refreshToken: action.payload.refresh_token,
-    //     };
-    //     tokenHandler.storeToken({
-    //       idToken: action.payload.id_token,
-    //       refreshToken: action.payload.refresh_token,
-    //       accessToken: action.payload.access_token,
-    //     });
-    //   }
-    // );
-    // builder.addMatcher(
-    //   publicUsersApi.endpoints.signInWithCode.matchFulfilled,
-    //   (state, action) => {
-    //     state.tokens = {
-    //       idToken: action.payload.id_token,
-    //       accessToken: action.payload.access_token,
-    //       refreshToken: action.payload.refresh_token,
-    //     };
-    //     tokenHandler.storeToken({
-    //       idToken: action.payload.id_token,
-    //       refreshToken: action.payload.refresh_token,
-    //       accessToken: action.payload.access_token,
-    //     });
-    //   }
-    // );
-    // note: intentionally sign out
+    builder.addMatcher(authApi.endpoints.signIn.matchFulfilled, (state, action) => {
+      if ('id_token' in action.payload) {
+        state.tokens = {
+          idToken: action.payload.id_token ?? '',
+          accessToken: action.payload.access_token ?? '',
+          refreshToken: action.payload.refresh_token ?? '',
+        }
+        tokenHandler.storeToken({
+          idToken: action.payload.id_token ?? '',
+          refreshToken: action.payload.refresh_token ?? '',
+          accessToken: action.payload.access_token ?? '',
+        })
+      }
+    })
     // builder.addMatcher(usersApi.endpoints.signOut.matchFulfilled, (state) => {
     //   state.tokens = undefined;
     //   state.user = undefined;
