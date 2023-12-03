@@ -1,6 +1,6 @@
-import { Box } from '@mui/material'
 import { FC } from 'react'
+import { Link } from 'react-router-dom'
 
 export const Home: FC = () => {
-  return <Box>Home</Box>
+  return <Link to="/articles">記事一覧</Link>
 }
