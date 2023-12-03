@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom'
 export const Login: FC = () => {
   const navigate = useNavigate()
   const isAuthenticated = useAppSelector(selectIsAuthenticated)
-  console.log(isAuthenticated)
   const handleGoogleLogin = () => {
     window.location.href = 'http://localhost:8080/login'
   }

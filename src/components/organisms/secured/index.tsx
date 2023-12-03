@@ -11,7 +11,6 @@ export const Secured = () => {
   const isAuthenticated = useAppSelector(selectIsAuthenticated)
   useEffect(() => {
     const fetchData = async () => {
-      console.log('実行')
       if (!user) {
         const data = await dispatch(usersApi.endpoints.getUser.initiate({})).unwrap()
         dispatch(setUser(data))
