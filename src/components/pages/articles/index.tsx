@@ -4,18 +4,18 @@ import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export const Articles: FC = () => {
-  const { data, isLoading } = useGetArticlesQuery({})
+  const { data: articles, isLoading } = useGetArticlesQuery({})
   const navigate = useNavigate()
   const handleClickRow = (id: number) => {
     navigate(`${id}`)
   }
   return (
     <Box>
-      {data?.map((datum, index) => (
-        <Box key={index} display="flex" gap={4}>
-          <Typography>{datum.title}</Typography>
-          <Typography>{datum.contents}</Typography>
-          <Button onClick={() => handleClickRow(datum.id)}>詳細</Button>
+      {articles?.map((article, index) => (
+        <Box key={article.id} display="flex" gap={4}>
+          <Typography>{article.title}</Typography>
+          <Typography>{article.contents}</Typography>
+          <Button onClick={() => handleClickRow(article.id)}>詳細</Button>
         </Box>
       ))}
     </Box>
