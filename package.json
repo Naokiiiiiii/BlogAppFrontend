@@ -26,6 +26,7 @@
     "react-router-dom": "^6.17.0",
     "redux": "^4.2.1",
     "sort-by": "^0.0.2",
+    "ts-case-convert": "^2.0.2",
     "ts-node": "^10.9.1"
   },
   "devDependencies": {
