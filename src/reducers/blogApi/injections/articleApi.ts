@@ -1,3 +1,4 @@
+import { objectToSnake } from 'ts-case-convert'
 import { paths } from 'types/api'
 import { baseApi } from '../baseApi'
 
@@ -5,6 +6,9 @@ type GetArticleListParams = paths['/article/list']['get']['parameters']['query']
 type GetArticleListResponse = paths['/article/list']['get']['responses']['200']['content']['application/json']
 type GetArticleDetailParams = paths['/article/{article_id}']['get']['parameters']['path']
 type GetArticleDetailResponse = paths['/article/{article_id}']['get']['responses']['200']['content']['application/json']
+
+type PostArticleParams = paths['/article']['post']['requestBody']['content']['application/json']
+type PostArticleResponse = paths['/article']['post']['responses']['200']['content']['application/json']
 
 export const articlesApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -19,6 +23,13 @@ export const articlesApi = baseApi.injectEndpoints({
       query: (params) => ({
         url: `article/${params.article_id}`,
         method: 'GET',
+      }),
+    }),
+    createArticle: builder.mutation<PostArticleResponse, PostArticleParams>({
+      query: (params) => ({
+        url: 'article',
+        method: 'POST',
+        body: objectToSnake(params),
       }),
     }),
   }),
