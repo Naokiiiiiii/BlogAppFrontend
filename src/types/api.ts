@@ -128,7 +128,7 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          page?: number;
+          page?: string;
         };
       };
       responses: {
@@ -318,21 +318,21 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     user: {
-      user_id: number;
-      google_id: number;
-      user_name: string;
-      email: string;
-      created_at: string;
-      updated_at: string;
+      user_id?: number;
+      google_id?: number;
+      user_name?: string;
+      email?: string;
+      created_at?: string;
+      updated_at?: string;
     };
     article: {
-      id?: number;
-      title?: string;
-      contents?: string;
-      user_id?: number;
-      user_name?: string;
+      id: number;
+      title: string;
+      contents: string;
+      user_id: number;
+      user_name: string;
       nice_num?: number;
-      created_at?: string;
+      created_at: string;
       comment_list?: components["schemas"]["comment"][];
     };
     comment: {
@@ -352,12 +352,12 @@ export interface components {
       refresh_token?: string;
     };
     getUserResponse: {
-      user_id: number;
-      google_id: number;
-      user_name: string;
-      email: string;
-      created_at: string;
-      updated_at: string;
+      user_id?: number;
+      google_id?: number;
+      user_name?: string;
+      email?: string;
+      created_at?: string;
+      updated_at?: string;
     };
     putUserRequest: {
       user_name?: string;
