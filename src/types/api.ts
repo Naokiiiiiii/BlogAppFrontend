@@ -333,6 +333,7 @@ export interface components {
       user_name: string;
       nice_num?: number;
       created_at: string;
+      updated_at: string;
       comment_list?: components["schemas"]["comment"][];
     };
     comment: {
