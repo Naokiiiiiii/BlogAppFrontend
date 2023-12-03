@@ -9,6 +9,7 @@ export const articlesApi = baseApi.injectEndpoints({
     getArticles: builder.query<GetArticleListResponse, GetArticleListParams>({
       query: (params) => ({
         url: 'article/list',
+        method: 'GET',
         params: { page: params?.page ?? 10 },
       }),
     }),
