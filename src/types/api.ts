@@ -318,12 +318,12 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     user: {
-      user_id?: number;
+      user_id: number;
       google_id?: number;
-      user_name?: string;
-      email?: string;
-      created_at?: string;
-      updated_at?: string;
+      user_name: string;
+      email: string;
+      created_at: string;
+      updated_at: string;
     };
     article: {
       id: number;
@@ -353,12 +353,12 @@ export interface components {
       refresh_token?: string;
     };
     getUserResponse: {
-      user_id?: number;
+      user_id: number;
       google_id?: number;
-      user_name?: string;
-      email?: string;
-      created_at?: string;
-      updated_at?: string;
+      user_name: string;
+      email: string;
+      created_at: string;
+      updated_at: string;
     };
     putUserRequest: {
       user_name?: string;
@@ -372,7 +372,7 @@ export interface components {
     postArticleRequest: {
       title: string;
       contents: string;
-      user_id: string;
+      user_id: number;
     };
     getArticleListResponse: components["schemas"]["article"][];
     putArticleRequest: {

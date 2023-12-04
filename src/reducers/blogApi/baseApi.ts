@@ -3,6 +3,10 @@ import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError 
 import { RootState } from '@store/index'
 import { baseUrl } from '@utils/const'
 
+export enum ArticleTags {
+  CreateArticle = 'create_article',
+}
+
 type Camelcase<S extends string> = S extends `${infer X}_${infer Y}${infer Z}` ? `${Lowercase<X>}${Uppercase<Y>}${Camelcase<Z>}` : Lowercase<S>
 
 // MEMO: 配列に対して適応できないので注意が必要
@@ -56,5 +60,5 @@ export const baseApi = createApi({
   reducerPath: 'blogApi',
   baseQuery: baseQueryWithReauth,
   endpoints: () => ({}),
-  tagTypes: [],
+  tagTypes: [ArticleTags.CreateArticle],
 })

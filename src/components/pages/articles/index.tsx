@@ -11,7 +11,7 @@ export const Articles: FC = () => {
   }
   return (
     <Box>
-      {articles?.map((article, index) => (
+      {articles?.map((article) => (
         <Box key={article.id} display="flex" gap={4}>
           <Typography>{article.title}</Typography>
           <Typography>{article.contents}</Typography>
