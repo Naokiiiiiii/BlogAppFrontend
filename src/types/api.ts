@@ -353,12 +353,12 @@ export interface components {
       refresh_token?: string;
     };
     getUserResponse: {
-      user_id?: number;
+      user_id: number;
       google_id?: number;
-      user_name?: string;
-      email?: string;
-      created_at?: string;
-      updated_at?: string;
+      user_name: string;
+      email: string;
+      created_at: string;
+      updated_at: string;
     };
     putUserRequest: {
       user_name?: string;
