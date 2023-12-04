@@ -1,5 +1,5 @@
 import { paths } from 'types/api'
-import { baseApi } from '../baseApi'
+import { ArticleTags, baseApi } from '../baseApi'
 
 type GetArticleListParams = paths['/article/list']['get']['parameters']['query']
 type GetArticleListResponse = paths['/article/list']['get']['responses']['200']['content']['application/json']
@@ -17,6 +17,7 @@ export const articlesApi = baseApi.injectEndpoints({
         method: 'GET',
         params: { page: params?.page },
       }),
+      providesTags: [ArticleTags.CreateArticle],
     }),
     getArticleDetail: builder.query<GetArticleDetailResponse, GetArticleDetailParams>({
       query: (params) => ({
@@ -34,6 +35,7 @@ export const articlesApi = baseApi.injectEndpoints({
           user_id: params.user_id,
         },
       }),
+      invalidatesTags: [ArticleTags.CreateArticle],
     }),
   }),
 })
