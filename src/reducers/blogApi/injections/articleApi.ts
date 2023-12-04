@@ -5,9 +5,10 @@ type GetArticleListParams = paths['/article/list']['get']['parameters']['query']
 type GetArticleListResponse = paths['/article/list']['get']['responses']['200']['content']['application/json']
 type GetArticleDetailParams = paths['/article/{article_id}']['get']['parameters']['path']
 type GetArticleDetailResponse = paths['/article/{article_id}']['get']['responses']['200']['content']['application/json']
-
 type PostArticleParams = paths['/article']['post']['requestBody']['content']['application/json']
 type PostArticleResponse = paths['/article']['post']['responses']['200']['content']['application/json']
+type DeleteArticleParams = paths['/article/{article_id}']['delete']['parameters']['path']
+type DeleteArticleResponse = paths['/article/{article_id}']['delete']['responses']['200']['content']['application/json']
 
 export const articlesApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -17,7 +18,7 @@ export const articlesApi = baseApi.injectEndpoints({
         method: 'GET',
         params: { page: params?.page },
       }),
-      providesTags: [ArticleTags.CreateArticle],
+      providesTags: [ArticleTags.CreateArticle, ArticleTags.DeleteArticle],
     }),
     getArticleDetail: builder.query<GetArticleDetailResponse, GetArticleDetailParams>({
       query: (params) => ({
@@ -37,7 +38,14 @@ export const articlesApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [ArticleTags.CreateArticle],
     }),
+    deleteArticle: builder.mutation<DeleteArticleResponse, DeleteArticleParams>({
+      query: (params) => ({
+        url: `article/${params.article_id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: [ArticleTags.DeleteArticle],
+    }),
   }),
 })
 
-export const { useGetArticlesQuery, useGetArticleDetailQuery, useCreateArticleMutation } = articlesApi
+export const { useGetArticlesQuery, useGetArticleDetailQuery, useCreateArticleMutation, useDeleteArticleMutation } = articlesApi
