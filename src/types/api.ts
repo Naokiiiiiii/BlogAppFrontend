@@ -372,7 +372,7 @@ export interface components {
     postArticleRequest: {
       title: string;
       contents: string;
-      user_id: string;
+      user_id: number;
     };
     getArticleListResponse: components["schemas"]["article"][];
     putArticleRequest: {
