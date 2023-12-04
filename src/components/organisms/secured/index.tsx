@@ -12,12 +12,12 @@ export const Secured = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (!user) {
-        const data = await dispatch(usersApi.endpoints.getUser.initiate({})).unwrap()
+        const data = await dispatch(usersApi.endpoints.getUser.initiate({ forceRefetch: true })).unwrap()
         dispatch(setUser(data))
       }
     }
     fetchData()
-  }, [dispatch, user])
+  })
 
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />
 }
