@@ -33,8 +33,6 @@ export const CreateArticle: FC = () => {
     },
   })
 
-  console.log(user)
-
   const handleCreateArticle: SubmitHandler<FormData> = async ({ title, contents }) => {
     try {
       await createArticle({
