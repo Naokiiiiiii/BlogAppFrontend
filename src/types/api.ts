@@ -318,12 +318,12 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     user: {
-      user_id?: number;
+      user_id: number;
       google_id?: number;
-      user_name?: string;
-      email?: string;
-      created_at?: string;
-      updated_at?: string;
+      user_name: string;
+      email: string;
+      created_at: string;
+      updated_at: string;
     };
     article: {
       id: number;
