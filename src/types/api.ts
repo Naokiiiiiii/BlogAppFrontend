@@ -185,7 +185,9 @@ export interface paths {
       responses: {
         /** @description SuccessResponse */
         200: {
-          content: never;
+          content: {
+            "application/json": components["schemas"]["nullObject"];
+          };
         };
         /** @description Error */
         400: {
@@ -205,7 +207,9 @@ export interface paths {
       responses: {
         /** @description SuccessResponse */
         200: {
-          content: never;
+          content: {
+            "application/json": components["schemas"]["nullObject"];
+          };
         };
         /** @description Error */
         400: {
@@ -398,6 +402,8 @@ export interface components {
       ErrCode?: string;
       Message?: string;
     };
+    /** @example null */
+    nullObject: Record<string, unknown> | null;
   };
   responses: never;
   parameters: never;

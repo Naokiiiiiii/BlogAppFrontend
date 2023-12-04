@@ -5,6 +5,7 @@ import { baseUrl } from '@utils/const'
 
 export enum ArticleTags {
   CreateArticle = 'create_article',
+  DeleteArticle = 'delete_article',
 }
 
 type Camelcase<S extends string> = S extends `${infer X}_${infer Y}${infer Z}` ? `${Lowercase<X>}${Uppercase<Y>}${Camelcase<Z>}` : Lowercase<S>
@@ -60,5 +61,5 @@ export const baseApi = createApi({
   reducerPath: 'blogApi',
   baseQuery: baseQueryWithReauth,
   endpoints: () => ({}),
-  tagTypes: [ArticleTags.CreateArticle],
+  tagTypes: [ArticleTags.CreateArticle, ArticleTags.DeleteArticle],
 })
