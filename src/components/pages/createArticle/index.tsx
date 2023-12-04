@@ -4,6 +4,7 @@ import { Box } from '@mui/system'
 import { useCreateArticleMutation } from '@reducers/blogApi/injections/articleApi'
 import { FC } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { useAppSelector } from 'store'
 import { InferType, object, string } from 'yup'
 
@@ -17,6 +18,7 @@ type FormData = InferType<typeof schema>
 export const CreateArticle: FC = () => {
   const [createArticle, isLoading] = useCreateArticleMutation()
   const { user } = useAppSelector((state) => state.Auth)
+  const navigate = useNavigate()
 
   const {
     control,
@@ -31,12 +33,19 @@ export const CreateArticle: FC = () => {
     },
   })
 
+  console.log(user)
+
   const handleCreateArticle: SubmitHandler<FormData> = async ({ title, contents }) => {
-    const result = await createArticle({
-      title,
-      contents,
-      user_id: user?.user_id ?? 0,
-    })
+    try {
+      await createArticle({
+        title,
+        contents,
+        user_id: user?.user_id ?? 0,
+      })
+      navigate('/articles')
+    } catch {
+      console.log('作成に失敗しました')
+    }
   }
 
   return (
