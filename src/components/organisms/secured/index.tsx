@@ -12,7 +12,7 @@ export const Secured = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (!user) {
-        const data = await dispatch(usersApi.endpoints.getUser.initiate({ forceRefetch: true })).unwrap()
+        const data = await dispatch(usersApi.endpoints.getUser.initiate({}, { forceRefetch: true })).unwrap()
         dispatch(setUser(data))
       }
     }
