@@ -1,4 +1,3 @@
-import { objectToSnake } from 'ts-case-convert'
 import { paths } from 'types/api'
 import { baseApi } from '../baseApi'
 
@@ -29,10 +28,14 @@ export const articlesApi = baseApi.injectEndpoints({
       query: (params) => ({
         url: 'article',
         method: 'POST',
-        body: objectToSnake(params),
+        body: {
+          title: params.title,
+          contents: params.contents,
+          user_id: params.user_id,
+        },
       }),
     }),
   }),
 })
 
-export const { useGetArticlesQuery, useGetArticleDetailQuery } = articlesApi
+export const { useGetArticlesQuery, useGetArticleDetailQuery, useCreateArticleMutation } = articlesApi
