@@ -338,7 +338,7 @@ export interface components {
       nice_num?: number;
       created_at: string;
       updated_at: string;
-      comment_list?: components["schemas"]["comment"][];
+      comments?: components["schemas"]["comment"][];
     };
     comment: {
       comment_id?: number;
