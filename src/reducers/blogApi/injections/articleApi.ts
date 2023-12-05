@@ -1,5 +1,5 @@
 import { paths } from 'types/api'
-import { ArticleTags, baseApi } from '../baseApi'
+import { ArticleTags, baseApi, CommentTag } from '../baseApi'
 
 type GetArticleListParams = paths['/article/list']['get']['parameters']['query']
 type GetArticleListResponse = paths['/article/list']['get']['responses']['200']['content']['application/json']
@@ -25,6 +25,7 @@ export const articlesApi = baseApi.injectEndpoints({
         url: `article/${params.article_id}`,
         method: 'GET',
       }),
+      providesTags: [CommentTag.CreateComment],
     }),
     createArticle: builder.mutation<PostArticleResponse, PostArticleParams>({
       query: (params) => ({

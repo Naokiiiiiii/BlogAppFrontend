@@ -338,13 +338,16 @@ export interface components {
       nice_num?: number;
       created_at: string;
       updated_at: string;
-      comment_list?: components["schemas"]["comment"][];
+      comments?: components["schemas"]["comment"][];
     };
     comment: {
-      comment_id?: number;
-      article_id?: number;
-      user_id?: number;
-      message?: string;
+      comment_id: number;
+      article_id: number;
+      user_id: number;
+      user_name: string;
+      message: string;
+      created_at: string;
+      updated_at: string;
     };
     nice: {
       nice_id?: number;
@@ -384,9 +387,9 @@ export interface components {
       contents?: string;
     };
     postCommentRequest: {
-      article_id?: number;
-      user_id?: number;
-      message?: string;
+      article_id: number;
+      user_id: number;
+      message: string;
     };
     putCommentRequest: {
       message?: string;
