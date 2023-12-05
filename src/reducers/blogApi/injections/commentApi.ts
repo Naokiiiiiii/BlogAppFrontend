@@ -6,7 +6,7 @@ type PutCommentResponse = paths['/comment']['post']['responses']['200']['content
 
 export const commentsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    putComment: builder.mutation<PutCommentResponse, PutCommentParams>({
+    createComment: builder.mutation<PutCommentResponse, PutCommentParams>({
       query: (params) => ({
         url: 'comment',
         method: 'POST',
@@ -21,4 +21,4 @@ export const commentsApi = baseApi.injectEndpoints({
   }),
 })
 
-export const {} = commentsApi
+export const { useCreateCommentMutation } = commentsApi
