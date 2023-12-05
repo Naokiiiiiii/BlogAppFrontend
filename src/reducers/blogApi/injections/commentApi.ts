@@ -3,6 +3,8 @@ import { baseApi, CommentTag } from '../baseApi'
 
 type PutCommentParams = paths['/comment']['post']['requestBody']['content']['application/json']
 type PutCommentResponse = paths['/comment']['post']['responses']['200']['content']['application/json']
+type DeleteCommentParams = paths['/comment/{comment_id}']['delete']['parameters']['path']
+type DeleteCommentResponse = paths['/comment/{comment_id}']['delete']['responses']['200']['content']['application/json']
 
 export const commentsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -18,7 +20,14 @@ export const commentsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [CommentTag.CreateComment],
     }),
+    deleteComment: builder.mutation<DeleteCommentResponse, DeleteCommentParams>({
+      query: (params) => ({
+        url: `comment/${params.comment_id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: [CommentTag.DeleteComment],
+    }),
   }),
 })
 
-export const { useCreateCommentMutation } = commentsApi
+export const { useCreateCommentMutation, useDeleteCommentMutation } = commentsApi
