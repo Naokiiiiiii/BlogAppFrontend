@@ -387,9 +387,9 @@ export interface components {
       contents?: string;
     };
     postCommentRequest: {
-      article_id?: number;
-      user_id?: number;
-      message?: string;
+      article_id: number;
+      user_id: number;
+      message: string;
     };
     putCommentRequest: {
       message?: string;
