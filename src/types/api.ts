@@ -341,10 +341,13 @@ export interface components {
       comments?: components["schemas"]["comment"][];
     };
     comment: {
-      comment_id?: number;
-      article_id?: number;
-      user_id?: number;
-      message?: string;
+      comment_id: number;
+      article_id: number;
+      user_id: number;
+      user_name: string;
+      message: string;
+      created_at: string;
+      updated_at: string;
     };
     nice: {
       nice_id?: number;
