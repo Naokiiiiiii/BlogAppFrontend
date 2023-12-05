@@ -1,12 +1,12 @@
 import { paths } from 'types/api'
-import { ArticleTags, baseApi } from '../baseApi'
+import { baseApi, CommentTag } from '../baseApi'
 
 type PutCommentParams = paths['/comment']['post']['requestBody']['content']['application/json']
 type PutCommentResponse = paths['/comment']['post']['responses']['200']['content']['application/json']
 
 export const commentsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    putComment: builder.query<PutCommentResponse, PutCommentParams>({
+    putComment: builder.mutation<PutCommentResponse, PutCommentParams>({
       query: (params) => ({
         url: 'comment',
         method: 'POST',
@@ -16,7 +16,7 @@ export const commentsApi = baseApi.injectEndpoints({
           message: params.message,
         },
       }),
-      providesTags: [ArticleTags.CreateArticle, ArticleTags.DeleteArticle],
+      invalidatesTags: [CommentTag.CreateComment],
     }),
   }),
 })
