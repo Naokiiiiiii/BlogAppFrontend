@@ -21,7 +21,7 @@ export const ArticleDetail: FC = () => {
           <Typography>updated_at: {article?.updated_at}</Typography>
           <Box>
             <Typography>コメント一覧</Typography>
-            {article?.comments && article.comments.length > 0 ? (
+            {article?.comments ? (
               article.comments.map((comment) => (
                 <Box key={comment.comment_id}>
                   <Typography>
