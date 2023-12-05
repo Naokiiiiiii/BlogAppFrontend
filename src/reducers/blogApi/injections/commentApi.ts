@@ -1,14 +1,14 @@
 import { paths } from 'types/api'
 import { baseApi, CommentTag } from '../baseApi'
 
-type PutCommentParams = paths['/comment']['post']['requestBody']['content']['application/json']
-type PutCommentResponse = paths['/comment']['post']['responses']['200']['content']['application/json']
+type CreateCommentParams = paths['/comment']['post']['requestBody']['content']['application/json']
+type CreateCommentResponse = paths['/comment']['post']['responses']['200']['content']['application/json']
 type DeleteCommentParams = paths['/comment/{comment_id}']['delete']['parameters']['path']
 type DeleteCommentResponse = paths['/comment/{comment_id}']['delete']['responses']['200']['content']['application/json']
 
 export const commentsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    createComment: builder.mutation<PutCommentResponse, PutCommentParams>({
+    createComment: builder.mutation<CreateCommentResponse, CreateCommentParams>({
       query: (params) => ({
         url: 'comment',
         method: 'POST',
