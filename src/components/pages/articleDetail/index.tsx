@@ -25,6 +25,7 @@ export const ArticleDetail: FC = () => {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FormData>({
     // @ts-ignore Todo:型エラー修正
     resolver: yupResolver(schema),
@@ -40,6 +41,7 @@ export const ArticleDetail: FC = () => {
         article_id: article?.id ?? 0,
         user_id: user?.user_id ?? 0,
       })
+      reset()
     } catch {
       console.log('作成に失敗しました')
     }
