@@ -15,6 +15,20 @@ export const ArticleDetail: FC = () => {
       <Typography>contents: {article?.contents}</Typography>
       <Typography>created_at: {article?.created_at}</Typography>
       <Typography>updated_at: {article?.updated_at}</Typography>
+      <Box>
+        <Typography>コメント一覧</Typography>
+        {article?.comments ? (
+          article?.comments.map((comment) => (
+            <Box key={comment.comment_id}>
+              <Typography>
+                {comment.message} {comment.user_name}
+              </Typography>
+            </Box>
+          ))
+        ) : (
+          <Typography>コメントなし</Typography>
+        )}
+      </Box>
     </Box>
   )
 }
