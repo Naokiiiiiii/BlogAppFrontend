@@ -280,7 +280,9 @@ export interface paths {
       responses: {
         /** @description SuccessResponse */
         200: {
-          content: never;
+          content: {
+            "application/json": components["schemas"]["nullObject"];
+          };
         };
         /** @description Error */
         400: {
