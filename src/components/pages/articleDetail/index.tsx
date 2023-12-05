@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Button, CircularProgress, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { useGetArticleDetailQuery } from '@reducers/blogApi/injections/articleApi'
-import { useCreateCommentMutation } from '@reducers/blogApi/injections/commentApi'
+import { useCreateCommentMutation, useDeleteCommentMutation } from '@reducers/blogApi/injections/commentApi'
 import { FC } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
@@ -20,6 +20,7 @@ export const ArticleDetail: FC = () => {
   const { data: article, isLoading } = useGetArticleDetailQuery({ article_id: Number(id) })
   const { user } = useAppSelector((state) => state.Auth)
   const [createComment] = useCreateCommentMutation()
+  const [deleteComment] = useDeleteCommentMutation()
 
   const {
     control,
@@ -47,6 +48,10 @@ export const ArticleDetail: FC = () => {
     }
   }
 
+  const handleClickDeleteComment = async (commentID: number) => {
+    await deleteComment({ comment_id: commentID })
+  }
+
   return (
     <Box>
       {isLoading ? (
@@ -72,10 +77,11 @@ export const ArticleDetail: FC = () => {
             <Typography>コメント一覧</Typography>
             {article?.comments ? (
               article.comments.map((comment) => (
-                <Box key={comment.comment_id}>
+                <Box key={comment.comment_id} display="flex">
                   <Typography>
                     {comment.message} {comment.user_name}
                   </Typography>
+                  {comment.user_id === user?.user_id && <Button onClick={() => handleClickDeleteComment(comment.comment_id)}>削除</Button>}
                 </Box>
               ))
             ) : (
