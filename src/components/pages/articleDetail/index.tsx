@@ -2,18 +2,23 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Button, CircularProgress, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { useGetArticleDetailQuery } from '@reducers/blogApi/injections/articleApi'
-import { useCreateCommentMutation, useDeleteCommentMutation } from '@reducers/blogApi/injections/commentApi'
-import { FC } from 'react'
+import { useCreateCommentMutation, useDeleteCommentMutation, useUpdateCommentMutation } from '@reducers/blogApi/injections/commentApi'
+import { FC, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 import { useAppSelector } from 'store'
 import { InferType, object, string } from 'yup'
 
-const schema = object({
-  message: string().required('コメントを入力してください'),
+const createCommentSchema = object({
+  messageCreate: string().required('コメントを入力してください'),
 })
 
-type FormData = InferType<typeof schema>
+const editCommentSchema = object({
+  messageEdit: string().required('コメントを入力してください'),
+})
+
+type CreateCommentFormData = InferType<typeof createCommentSchema>
+type EditCommentFormData = InferType<typeof editCommentSchema>
 
 export const ArticleDetail: FC = () => {
   const { id } = useParams()
@@ -21,30 +26,64 @@ export const ArticleDetail: FC = () => {
   const { user } = useAppSelector((state) => state.Auth)
   const [createComment] = useCreateCommentMutation()
   const [deleteComment] = useDeleteCommentMutation()
+  const [updateComment] = useUpdateCommentMutation()
+  const [isCommentEdit, setIsCommentEdit] = useState(false)
+  const [editCommentID, setEditCommentID] = useState(0)
 
   const {
-    control,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<FormData>({
+    control: createCommentControl,
+    handleSubmit: createCommentHandleSubmit,
+    formState: { errors: createCommentErrors },
+    reset: createCommentReset,
+  } = useForm<CreateCommentFormData>({
     // @ts-ignore Todo:型エラー修正
-    resolver: yupResolver(schema),
+    resolver: yupResolver(createCommentSchema),
     defaultValues: {
-      message: '',
+      messageCreate: '',
     },
   })
 
-  const handleSendComment: SubmitHandler<FormData> = async ({ message }) => {
+  const {
+    control: editCommentControl,
+    handleSubmit: editCommentHandleSubmit,
+    formState: { errors: editCommentErrors },
+    reset: editCommentReset,
+  } = useForm<EditCommentFormData>({
+    // @ts-ignore Todo:型エラー修正
+    resolver: yupResolver(editCommentSchema),
+    defaultValues: {
+      messageEdit: '',
+    },
+  })
+
+  const handleSendComment: SubmitHandler<CreateCommentFormData> = async ({ messageCreate }) => {
     try {
       await createComment({
-        message,
+        message: messageCreate,
         article_id: article?.id ?? 0,
         user_id: user?.user_id ?? 0,
       })
-      reset()
+      createCommentReset()
     } catch {
       console.log('作成に失敗しました')
+    }
+  }
+
+  const handleClickEditComment = (commentID: number) => {
+    setIsCommentEdit(true)
+    setEditCommentID(commentID)
+  }
+
+  const handleSendEditComment: SubmitHandler<EditCommentFormData> = async ({ messageEdit }) => {
+    try {
+      await updateComment({
+        comment_id: editCommentID,
+        message: messageEdit,
+      })
+      editCommentReset()
+      setIsCommentEdit(false)
+    } catch {
+      console.log('更新に失敗しました')
     }
   }
 
@@ -64,12 +103,19 @@ export const ArticleDetail: FC = () => {
           <Typography>created_at: {article?.created_at}</Typography>
           <Typography>updated_at: {article?.updated_at}</Typography>
           <Box>
-            <Box component="form" onSubmit={handleSubmit(handleSendComment)}>
+            <Box component="form" onSubmit={createCommentHandleSubmit(handleSendComment)}>
               <Controller
-                name="message"
-                control={control}
+                name="messageCreate"
+                control={createCommentControl}
                 render={({ field }) => (
-                  <TextField {...field} fullWidth label="コメント" required error={!!errors.message} helperText={errors.message?.message} />
+                  <TextField
+                    {...field}
+                    fullWidth
+                    label="コメント"
+                    required
+                    error={!!createCommentErrors.messageCreate}
+                    helperText={createCommentErrors.messageCreate?.message}
+                  />
                 )}
               />
               <Button type="submit">送信</Button>
@@ -78,10 +124,33 @@ export const ArticleDetail: FC = () => {
             {article?.comments ? (
               article.comments.map((comment) => (
                 <Box key={comment.comment_id} display="flex">
-                  <Typography>
-                    {comment.message} {comment.user_name}
-                  </Typography>
-                  {comment.user_id === user?.user_id && <Button onClick={() => handleClickDeleteComment(comment.comment_id)}>削除</Button>}
+                  {isCommentEdit && editCommentID === comment.comment_id ? (
+                    <Box component="form" onSubmit={editCommentHandleSubmit(handleSendEditComment)}>
+                      <Controller
+                        name="messageEdit"
+                        control={editCommentControl}
+                        render={({ field }) => (
+                          <TextField
+                            {...field}
+                            fullWidth
+                            label="コメント"
+                            required
+                            error={!!editCommentErrors.messageEdit}
+                            helperText={editCommentErrors.messageEdit?.message}
+                          />
+                        )}
+                      />
+                      <Button type="submit">送信</Button>
+                    </Box>
+                  ) : (
+                    <Box display="flex">
+                      <Typography>
+                        {comment.message} {comment.user_name}
+                      </Typography>
+                      {comment.user_id === user?.user_id && <Button onClick={() => handleClickEditComment(comment.comment_id)}>編集</Button>}
+                      {comment.user_id === user?.user_id && <Button onClick={() => handleClickDeleteComment(comment.comment_id)}>削除</Button>}
+                    </Box>
+                  )}
                 </Box>
               ))
             ) : (

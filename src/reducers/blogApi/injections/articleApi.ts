@@ -25,7 +25,7 @@ export const articlesApi = baseApi.injectEndpoints({
         url: `article/${params.article_id}`,
         method: 'GET',
       }),
-      providesTags: [CommentTag.CreateComment, CommentTag.DeleteComment],
+      providesTags: [CommentTag.CreateComment, CommentTag.DeleteComment, CommentTag.UpdateComment],
     }),
     createArticle: builder.mutation<PostArticleResponse, PostArticleParams>({
       query: (params) => ({
