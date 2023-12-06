@@ -13,6 +13,7 @@ export const Home: FC = () => {
     <Box component="div">
       <Button onClick={() => handleClickTransition('/articles')}>記事一覧</Button>
       <Button onClick={() => handleClickTransition('/article/create')}>記事新規作成</Button>
+      <Button onClick={() => handleClickTransition('/user')}>ユーザー情報</Button>
     </Box>
   )
 }
