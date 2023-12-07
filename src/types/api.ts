@@ -128,7 +128,7 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          page?: string;
+          page?: number;
         };
       };
       responses: {
