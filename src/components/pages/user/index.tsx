@@ -1,9 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Box, Button, TextField, Typography } from '@mui/material'
+import { setUser } from '@reducers/auth'
 import { useUpdateUserNameMutation } from '@reducers/blogApi/injections/userApi'
 import { FC, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import { useAppSelector } from 'store'
+import { useAppDispatch, useAppSelector } from 'store'
 import { InferType, object, string } from 'yup'
 
 const schema = object({
@@ -14,6 +15,7 @@ type FormData = InferType<typeof schema>
 
 export const User: FC = () => {
   const { user } = useAppSelector((state) => state.Auth)
+  const dispatch = useAppDispatch()
   const [isUserNametEdit, setIsUserNametEdit] = useState(false)
   const [updateUserName, isLoading] = useUpdateUserNameMutation()
 
@@ -36,6 +38,9 @@ export const User: FC = () => {
         user_id: user?.user_id ?? 0,
         user_name: userName,
       })
+      if (user) {
+        dispatch(setUser({ ...user, user_name: userName }))
+      }
     } catch {
       console.log('変更に失敗しました')
     }
