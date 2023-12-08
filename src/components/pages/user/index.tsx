@@ -21,7 +21,7 @@ export const User: FC = () => {
     control,
     handleSubmit,
     formState: { errors },
-    reset: createCommentReset,
+    reset,
   } = useForm<FormData>({
     // @ts-ignore Todo:型エラー修正
     resolver: yupResolver(schema),
