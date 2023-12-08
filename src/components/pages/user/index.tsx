@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Box, Button, TextField, Typography } from '@mui/material'
+import { useUpdateUserNameMutation } from '@reducers/blogApi/injections/userApi'
 import { FC, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useAppSelector } from 'store'
@@ -14,6 +15,7 @@ type FormData = InferType<typeof schema>
 export const User: FC = () => {
   const { user } = useAppSelector((state) => state.Auth)
   const [isUserNametEdit, setIsUserNametEdit] = useState(false)
+  const [updateUserName, isLoading] = useUpdateUserNameMutation()
 
   const {
     control,
@@ -29,7 +31,14 @@ export const User: FC = () => {
   })
 
   const handleEditUserName: SubmitHandler<FormData> = async ({ userName }) => {
-    console.log(userName)
+    try {
+      await updateUserName({
+        user_id: user?.user_id ?? 0,
+        user_name: userName,
+      })
+    } catch {
+      console.log('変更に失敗しました')
+    }
     setIsUserNametEdit(false)
   }
 
