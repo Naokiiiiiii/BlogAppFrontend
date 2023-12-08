@@ -46,19 +46,22 @@ export const User: FC = () => {
     setIsUserNametEdit(true)
   }
 
+  const handleClickCancelEditUserName = () => {
+    setIsUserNametEdit(false)
+  }
+
   return (
     <Box component="div">
       <Typography>ユーザー情報</Typography>
       {isUserNametEdit ? (
-        <Box component="form" onSubmit={handleSubmit(handleEditUserName)}>
+        <Box component="form" display="flex" onSubmit={handleSubmit(handleEditUserName)}>
           <Controller
             name="userName"
             control={control}
-            render={({ field }) => (
-              <TextField {...field} fullWidth label="ユーザー名" required error={!!errors.userName} helperText={errors.userName?.message} />
-            )}
+            render={({ field }) => <TextField {...field} label="ユーザー名" required error={!!errors.userName} helperText={errors.userName?.message} />}
           />
           <Button type="submit">変更</Button>
+          <Button onClick={handleClickCancelEditUserName}>戻る</Button>
         </Box>
       ) : (
         <Box display="flex">
