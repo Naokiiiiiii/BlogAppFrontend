@@ -339,10 +339,10 @@ export interface components {
       contents: string;
       user_id: number;
       user_name: string;
-      nice_num?: number;
       created_at: string;
       updated_at: string;
       comments?: components["schemas"]["comment"][];
+      nices?: components["schemas"]["nice"][];
     };
     comment: {
       comment_id: number;
