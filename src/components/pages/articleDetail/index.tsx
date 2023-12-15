@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
+import { Favorite, FavoriteBorder } from '@mui/icons-material'
 import { Button, CircularProgress, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { useGetArticleDetailQuery } from '@reducers/blogApi/injections/articleApi'
@@ -91,6 +92,8 @@ export const ArticleDetail: FC = () => {
     await deleteComment({ comment_id: commentID })
   }
 
+  const isLike = article?.nices?.some((nice) => user?.user_id === nice.user_id)
+
   return (
     <Box>
       {isLoading ? (
@@ -102,6 +105,7 @@ export const ArticleDetail: FC = () => {
           <Typography>contents: {article?.contents}</Typography>
           <Typography>created_at: {article?.created_at}</Typography>
           <Typography>updated_at: {article?.updated_at}</Typography>
+          <Box>{isLike ? <Favorite /> : <FavoriteBorder />}</Box>
           <Box>
             <Box component="form" onSubmit={createCommentHandleSubmit(handleSendComment)}>
               <Controller
