@@ -300,7 +300,7 @@ export interface paths {
   "/nice": {
     /** 指定した記事にいいねを登録する */
     post: {
-      requestBody?: {
+      requestBody: {
         content: {
           "application/json": components["schemas"]["postNiceRequest"];
         };
@@ -341,10 +341,10 @@ export interface components {
       contents: string;
       user_id: number;
       user_name: string;
-      nice_num?: number;
       created_at: string;
       updated_at: string;
       comments?: components["schemas"]["comment"][];
+      nices?: components["schemas"]["nice"][];
     };
     comment: {
       comment_id: number;

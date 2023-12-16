@@ -18,6 +18,10 @@ export enum UserTag {
   UpdateUser = 'update_user',
 }
 
+export enum NiceTag {
+  PostNice = 'post_nice',
+}
+
 type Camelcase<S extends string> = S extends `${infer X}_${infer Y}${infer Z}` ? `${Lowercase<X>}${Uppercase<Y>}${Camelcase<Z>}` : Lowercase<S>
 
 // MEMO: 配列に対して適応できないので注意が必要
@@ -78,5 +82,6 @@ export const baseApi = createApi({
     CommentTag.DeleteComment,
     CommentTag.UpdateComment,
     UserTag.UpdateUser,
+    NiceTag.PostNice,
   ],
 })
