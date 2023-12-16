@@ -4,6 +4,7 @@ import { Button, CircularProgress, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { useGetArticleDetailQuery } from '@reducers/blogApi/injections/articleApi'
 import { useCreateCommentMutation, useDeleteCommentMutation, useUpdateCommentMutation } from '@reducers/blogApi/injections/commentApi'
+import { usePostNiceMutation } from '@reducers/blogApi/injections/niceApi'
 import { FC, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
@@ -28,6 +29,7 @@ export const ArticleDetail: FC = () => {
   const [createComment] = useCreateCommentMutation()
   const [deleteComment] = useDeleteCommentMutation()
   const [updateComment] = useUpdateCommentMutation()
+  const [updateNice] = usePostNiceMutation()
   const [isCommentEdit, setIsCommentEdit] = useState(false)
   const [editCommentID, setEditCommentID] = useState(0)
 
@@ -92,6 +94,10 @@ export const ArticleDetail: FC = () => {
     await deleteComment({ comment_id: commentID })
   }
 
+  const handleClickUpdateNice = async () => {
+    await updateNice({ article_id: parseInt(id ?? ''), user_id: user?.user_id })
+  }
+
   const isLike = article?.nices?.some((nice) => user?.user_id === nice.user_id)
 
   return (
@@ -105,7 +111,7 @@ export const ArticleDetail: FC = () => {
           <Typography>contents: {article?.contents}</Typography>
           <Typography>created_at: {article?.created_at}</Typography>
           <Typography>updated_at: {article?.updated_at}</Typography>
-          <Box>{isLike ? <Favorite /> : <FavoriteBorder />}</Box>
+          <Box onClick={handleClickUpdateNice}>{isLike ? <Favorite /> : <FavoriteBorder />}</Box>
           <Box>
             <Box component="form" onSubmit={createCommentHandleSubmit(handleSendComment)}>
               <Controller

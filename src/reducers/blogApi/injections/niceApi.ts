@@ -8,7 +8,7 @@ export const niceApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     postNice: builder.mutation<PostNiceResponse, PostNiceParams>({
       query: (params) => ({
-        url: 'nice',
+        url: 'article/nice',
         method: 'POST',
         body: {
           article_id: params.article_id,
@@ -19,3 +19,5 @@ export const niceApi = baseApi.injectEndpoints({
     }),
   }),
 })
+
+export const { usePostNiceMutation } = niceApi
