@@ -40,7 +40,9 @@ export interface paths {
       responses: {
         /** @description SuccessResponse */
         200: {
-          content: never;
+          content: {
+            "application/json": components["schemas"]["nullObject"];
+          };
         };
         /** @description Error */
         400: {
@@ -128,7 +130,7 @@ export interface paths {
     get: {
       parameters: {
         query?: {
-          page?: string;
+          page?: number;
         };
       };
       responses: {
@@ -298,7 +300,7 @@ export interface paths {
   "/nice": {
     /** 指定した記事にいいねを登録する */
     post: {
-      requestBody?: {
+      requestBody: {
         content: {
           "application/json": components["schemas"]["postNiceRequest"];
         };
