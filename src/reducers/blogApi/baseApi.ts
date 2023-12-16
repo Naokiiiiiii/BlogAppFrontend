@@ -14,6 +14,10 @@ export enum CommentTag {
   UpdateComment = 'update_comment',
 }
 
+export enum UserTag {
+  UpdateUser = 'update_user',
+}
+
 export enum NiceTag {
   PostNice = 'post_nice',
 }
@@ -77,6 +81,7 @@ export const baseApi = createApi({
     CommentTag.CreateComment,
     CommentTag.DeleteComment,
     CommentTag.UpdateComment,
+    UserTag.UpdateUser,
     NiceTag.PostNice,
   ],
 })
