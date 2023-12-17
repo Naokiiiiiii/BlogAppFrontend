@@ -1,3 +1,4 @@
-import { components } from "./api";
+import { KeysToCamelcase } from '@reducers/blogApi/baseApi'
+import { components } from './api'
 
-export type User = components['schemas']['user']
+export type User = KeysToCamelcase<components['schemas']['user']>

@@ -38,7 +38,7 @@ export const CreateArticle: FC = () => {
       await createArticle({
         title,
         contents,
-        userId: user?.user_id ?? 0,
+        userId: user?.userId ?? 0,
       })
       navigate('/articles')
     } catch {

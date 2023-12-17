@@ -64,7 +64,7 @@ export const ArticleDetail: FC = () => {
       await createComment({
         message: messageCreate,
         articleId: article?.id ?? 0,
-        userId: user?.user_id ?? 0,
+        userId: user?.userId ?? 0,
       })
       createCommentReset()
     } catch {
@@ -95,10 +95,10 @@ export const ArticleDetail: FC = () => {
   }
 
   const handleClickUpdateNice = async () => {
-    await updateNice({ articleId: parseInt(id ?? ''), userId: user?.user_id })
+    await updateNice({ articleId: parseInt(id ?? ''), userId: user?.userId })
   }
 
-  const isLike = article?.nices?.some((nice) => user?.user_id === nice.user_id)
+  const isLike = article?.nices?.some((nice) => user?.userId === nice.user_id)
 
   return (
     <Box>
@@ -157,8 +157,8 @@ export const ArticleDetail: FC = () => {
                       <Typography>
                         {comment.message} {comment.user_name}
                       </Typography>
-                      {comment.user_id === user?.user_id && <Button onClick={() => handleClickEditComment(comment.comment_id)}>編集</Button>}
-                      {comment.user_id === user?.user_id && <Button onClick={() => handleClickDeleteComment(comment.comment_id)}>削除</Button>}
+                      {comment.user_id === user?.userId && <Button onClick={() => handleClickEditComment(comment.comment_id)}>編集</Button>}
+                      {comment.user_id === user?.userId && <Button onClick={() => handleClickDeleteComment(comment.comment_id)}>削除</Button>}
                     </Box>
                   )}
                 </Box>
