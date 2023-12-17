@@ -12,8 +12,8 @@ export const Articles: FC = () => {
   const handleClickRow = (id: number) => {
     navigate(`${id}`)
   }
-  const handleClickDelete = async (id: number) => {
-    await deleteArticle({ article_id: id })
+  const handleClickDelete = async (articleId: number) => {
+    await deleteArticle({ articleId })
   }
   return (
     <Box>

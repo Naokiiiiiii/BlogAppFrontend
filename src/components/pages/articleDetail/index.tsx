@@ -24,7 +24,7 @@ type EditCommentFormData = InferType<typeof editCommentSchema>
 
 export const ArticleDetail: FC = () => {
   const { id } = useParams()
-  const { data: article, isLoading } = useGetArticleDetailQuery({ article_id: Number(id) })
+  const { data: article, isLoading } = useGetArticleDetailQuery({ articleId: parseInt(id ?? '') })
   const { user } = useAppSelector((state) => state.Auth)
   const [createComment] = useCreateCommentMutation()
   const [deleteComment] = useDeleteCommentMutation()
