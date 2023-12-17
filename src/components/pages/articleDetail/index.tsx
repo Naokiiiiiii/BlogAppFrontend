@@ -24,7 +24,7 @@ type EditCommentFormData = InferType<typeof editCommentSchema>
 
 export const ArticleDetail: FC = () => {
   const { id } = useParams()
-  const { data: article, isLoading } = useGetArticleDetailQuery({ article_id: Number(id) })
+  const { data: article, isLoading } = useGetArticleDetailQuery({ articleId: parseInt(id ?? '') })
   const { user } = useAppSelector((state) => state.Auth)
   const [createComment] = useCreateCommentMutation()
   const [deleteComment] = useDeleteCommentMutation()
@@ -63,8 +63,8 @@ export const ArticleDetail: FC = () => {
     try {
       await createComment({
         message: messageCreate,
-        article_id: article?.id ?? 0,
-        user_id: user?.user_id ?? 0,
+        articleId: article?.id ?? 0,
+        userId: user?.user_id ?? 0,
       })
       createCommentReset()
     } catch {
@@ -80,7 +80,7 @@ export const ArticleDetail: FC = () => {
   const handleSendEditComment: SubmitHandler<EditCommentFormData> = async ({ messageEdit }) => {
     try {
       await updateComment({
-        comment_id: editCommentID,
+        commentId: editCommentID,
         message: messageEdit,
       })
       editCommentReset()
@@ -90,12 +90,12 @@ export const ArticleDetail: FC = () => {
     }
   }
 
-  const handleClickDeleteComment = async (commentID: number) => {
-    await deleteComment({ comment_id: commentID })
+  const handleClickDeleteComment = async (commentId: number) => {
+    await deleteComment({ commentId })
   }
 
   const handleClickUpdateNice = async () => {
-    await updateNice({ article_id: parseInt(id ?? ''), user_id: user?.user_id })
+    await updateNice({ articleId: parseInt(id ?? ''), userId: user?.user_id })
   }
 
   const isLike = article?.nices?.some((nice) => user?.user_id === nice.user_id)
@@ -109,8 +109,8 @@ export const ArticleDetail: FC = () => {
           <Typography>article: {article?.id}</Typography>
           <Typography>title: {article?.title}</Typography>
           <Typography>contents: {article?.contents}</Typography>
-          <Typography>created_at: {article?.created_at}</Typography>
-          <Typography>updated_at: {article?.updated_at}</Typography>
+          <Typography>created_at: {article?.createdAt}</Typography>
+          <Typography>updated_at: {article?.updatedAt}</Typography>
           <Box onClick={handleClickUpdateNice}>{isLike ? <Favorite /> : <FavoriteBorder />}</Box>
           <Box>
             <Box component="form" onSubmit={createCommentHandleSubmit(handleSendComment)}>

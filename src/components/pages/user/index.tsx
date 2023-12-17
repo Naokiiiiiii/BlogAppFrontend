@@ -35,8 +35,8 @@ export const User: FC = () => {
   const handleEditUserName: SubmitHandler<FormData> = async ({ userName }) => {
     try {
       await updateUserName({
-        user_id: user?.user_id ?? 0,
-        user_name: userName,
+        userId: user?.user_id ?? 0,
+        userName: userName,
       })
       if (user) {
         dispatch(setUser({ ...user, user_name: userName }))
