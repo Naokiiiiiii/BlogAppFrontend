@@ -22,7 +22,7 @@ export const Articles: FC = () => {
           <Typography>{article.title}</Typography>
           <Typography>{article.contents}</Typography>
           <Button onClick={() => handleClickRow(article.id)}>詳細</Button>
-          {user?.userId === article.user_id && <Button onClick={() => handleClickDelete(article.id)}>削除</Button>}
+          {user?.user_id === article.user_id && <Button onClick={() => handleClickDelete(article.id)}>削除</Button>}
         </Box>
       ))}
     </Box>

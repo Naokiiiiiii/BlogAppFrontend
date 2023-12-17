@@ -35,11 +35,11 @@ export const User: FC = () => {
   const handleEditUserName: SubmitHandler<FormData> = async ({ userName }) => {
     try {
       await updateUserName({
-        userId: user?.userId ?? 0,
+        userId: user?.user_id ?? 0,
         userName: userName,
       })
       if (user) {
-        dispatch(setUser({ ...user, userName }))
+        dispatch(setUser({ ...user, user_name: userName }))
       }
     } catch {
       console.log('変更に失敗しました')
@@ -70,13 +70,13 @@ export const User: FC = () => {
         </Box>
       ) : (
         <Box display="flex">
-          <Typography>ユーザー名：{user?.userName}</Typography>
+          <Typography>ユーザー名：{user?.user_name}</Typography>
           <Button onClick={handleClickEditUserName}>編集</Button>
         </Box>
       )}
       <Typography>メールアドレス：{user?.email}</Typography>
-      <Typography>登録日時：{user?.createdAt}</Typography>
-      <Typography>更新日時：{user?.updatedAt}</Typography>
+      <Typography>登録日時：{user?.created_at}</Typography>
+      <Typography>更新日時：{user?.updated_at}</Typography>
     </Box>
   )
 }
