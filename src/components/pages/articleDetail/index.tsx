@@ -63,8 +63,8 @@ export const ArticleDetail: FC = () => {
     try {
       await createComment({
         message: messageCreate,
-        article_id: article?.id ?? 0,
-        user_id: user?.user_id ?? 0,
+        articleId: article?.id ?? 0,
+        userId: user?.user_id ?? 0,
       })
       createCommentReset()
     } catch {
@@ -80,7 +80,7 @@ export const ArticleDetail: FC = () => {
   const handleSendEditComment: SubmitHandler<EditCommentFormData> = async ({ messageEdit }) => {
     try {
       await updateComment({
-        comment_id: editCommentID,
+        commentId: editCommentID,
         message: messageEdit,
       })
       editCommentReset()
@@ -90,8 +90,8 @@ export const ArticleDetail: FC = () => {
     }
   }
 
-  const handleClickDeleteComment = async (commentID: number) => {
-    await deleteComment({ comment_id: commentID })
+  const handleClickDeleteComment = async (commentId: number) => {
+    await deleteComment({ commentId })
   }
 
   const handleClickUpdateNice = async () => {
