@@ -1,8 +1,8 @@
 import { paths } from 'types/api'
-import { baseApi, NiceTag } from '../baseApi'
+import { baseApi, KeysToCamelcase, NiceTag } from '../baseApi'
 
-type PostNiceParams = paths['/nice']['post']['requestBody']['content']['application/json']
-type PostNiceResponse = paths['/nice']['post']['responses']['200']['content']['application/json']
+type PostNiceParams = KeysToCamelcase<paths['/nice']['post']['requestBody']['content']['application/json']>
+type PostNiceResponse = KeysToCamelcase<paths['/nice']['post']['responses']['200']['content']['application/json']>
 
 export const niceApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -11,8 +11,8 @@ export const niceApi = baseApi.injectEndpoints({
         url: 'article/nice',
         method: 'POST',
         body: {
-          article_id: params.article_id,
-          user_id: params.user_id,
+          article_id: params.articleId,
+          user_id: params.userId,
         },
       }),
       invalidatesTags: [NiceTag.PostNice],

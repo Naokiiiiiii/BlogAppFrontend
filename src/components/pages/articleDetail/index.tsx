@@ -95,7 +95,7 @@ export const ArticleDetail: FC = () => {
   }
 
   const handleClickUpdateNice = async () => {
-    await updateNice({ article_id: parseInt(id ?? ''), user_id: user?.user_id })
+    await updateNice({ articleId: parseInt(id ?? ''), userId: user?.user_id })
   }
 
   const isLike = article?.nices?.some((nice) => user?.user_id === nice.user_id)
