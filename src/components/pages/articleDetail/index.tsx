@@ -109,8 +109,8 @@ export const ArticleDetail: FC = () => {
           <Typography>article: {article?.id}</Typography>
           <Typography>title: {article?.title}</Typography>
           <Typography>contents: {article?.contents}</Typography>
-          <Typography>created_at: {article?.created_at}</Typography>
-          <Typography>updated_at: {article?.updated_at}</Typography>
+          <Typography>created_at: {article?.createdAt}</Typography>
+          <Typography>updated_at: {article?.updatedAt}</Typography>
           <Box onClick={handleClickUpdateNice}>{isLike ? <Favorite /> : <FavoriteBorder />}</Box>
           <Box>
             <Box component="form" onSubmit={createCommentHandleSubmit(handleSendComment)}>
