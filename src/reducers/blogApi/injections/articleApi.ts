@@ -9,6 +9,11 @@ type PostArticleParams = KeysToCamelcase<paths['/article']['post']['requestBody'
 type PostArticleResponse = KeysToCamelcase<paths['/article']['post']['responses']['200']['content']['application/json']>
 type DeleteArticleParams = KeysToCamelcase<paths['/article/{article_id}']['delete']['parameters']['path']>
 type DeleteArticleResponse = paths['/article/{article_id}']['delete']['responses']['200']['content']['application/json']
+type UpdateArticleParams = KeysToCamelcase<
+  paths['/article/{article_id}']['put']['parameters']['path'] & paths['/article/{article_id}']['put']['requestBody']['content']['application/json']
+>
+
+type UpdateArticleResponse = paths['/article/{article_id}']['put']['responses']['200']['content']['application/json']
 
 export const articlesApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -45,6 +50,16 @@ export const articlesApi = baseApi.injectEndpoints({
         method: 'DELETE',
       }),
       invalidatesTags: [ArticleTags.DeleteArticle],
+    }),
+    updateArticle: builder.mutation<UpdateArticleResponse, UpdateArticleParams>({
+      query: (params) => ({
+        url: `article/${params.articleId}`,
+        method: 'PUT',
+        body: {
+          title: params.title,
+          contents: params.contents,
+        },
+      }),
     }),
   }),
 })
