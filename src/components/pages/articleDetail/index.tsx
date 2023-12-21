@@ -7,7 +7,7 @@ import { useCreateCommentMutation, useDeleteCommentMutation, useUpdateCommentMut
 import { usePostNiceMutation } from '@reducers/blogApi/injections/niceApi'
 import { FC, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useAppSelector } from 'store'
 import { InferType, object, string } from 'yup'
 
@@ -32,6 +32,7 @@ export const ArticleDetail: FC = () => {
   const [updateNice] = usePostNiceMutation()
   const [isCommentEdit, setIsCommentEdit] = useState(false)
   const [editCommentID, setEditCommentID] = useState(0)
+  const navigate = useNavigate()
 
   const {
     control: createCommentControl,
@@ -72,6 +73,10 @@ export const ArticleDetail: FC = () => {
     }
   }
 
+  const handleClickEditArticle = () => {
+    navigate(`/article/update/${id}`)
+  }
+
   const handleClickEditComment = (commentID: number) => {
     setIsCommentEdit(true)
     setEditCommentID(commentID)
@@ -106,6 +111,7 @@ export const ArticleDetail: FC = () => {
         <CircularProgress />
       ) : (
         <Box>
+          <Button onClick={handleClickEditArticle}>編集</Button>
           <Typography>article: {article?.id}</Typography>
           <Typography>title: {article?.title}</Typography>
           <Typography>contents: {article?.contents}</Typography>

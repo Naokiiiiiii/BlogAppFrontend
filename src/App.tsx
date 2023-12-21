@@ -4,6 +4,7 @@ import { ArticleDetail } from '@components/pages/articleDetail'
 import { Articles } from '@components/pages/articles'
 import { CreateArticle } from '@components/pages/createArticle'
 import { Login } from '@components/pages/login'
+import { UpdateArticle } from '@components/pages/updateArticle'
 import { User } from '@components/pages/user'
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/articles" element={<Articles />} />
           <Route path="/articles/:id" element={<ArticleDetail />} />
           <Route path="/article/create" element={<CreateArticle />} />
+          <Route path="/article/update/:id" element={<UpdateArticle />} />
           <Route path="/user" element={<User />} />
         </Route>
       </Routes>
