@@ -9,17 +9,17 @@ export enum ArticleTags {
   UpdateArticle = 'update_article',
 }
 
-export enum CommentTag {
+export enum CommentTags {
   CreateComment = 'create_comment',
   DeleteComment = 'delete_comment',
   UpdateComment = 'update_comment',
 }
 
-export enum UserTag {
+export enum UserTags {
   UpdateUser = 'update_user',
 }
 
-export enum NiceTag {
+export enum NiceTags {
   PostNice = 'post_nice',
 }
 
@@ -80,10 +80,10 @@ export const baseApi = createApi({
     ArticleTags.CreateArticle,
     ArticleTags.DeleteArticle,
     ArticleTags.UpdateArticle,
-    CommentTag.CreateComment,
-    CommentTag.DeleteComment,
-    CommentTag.UpdateComment,
-    UserTag.UpdateUser,
-    NiceTag.PostNice,
+    CommentTags.CreateComment,
+    CommentTags.DeleteComment,
+    CommentTags.UpdateComment,
+    UserTags.UpdateUser,
+    NiceTags.PostNice,
   ],
 })
