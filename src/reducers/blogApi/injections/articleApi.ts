@@ -23,14 +23,14 @@ export const articlesApi = baseApi.injectEndpoints({
         method: 'GET',
         params: { page: params?.page },
       }),
-      providesTags: [ArticleTags.CreateArticle, ArticleTags.DeleteArticle],
+      providesTags: [ArticleTags.CreateArticle, ArticleTags.DeleteArticle, ArticleTags.UpdateArticle],
     }),
     getArticleDetail: builder.query<GetArticleDetailResponse, GetArticleDetailParams>({
       query: (params) => ({
         url: `article/${params.articleId}`,
         method: 'GET',
       }),
-      providesTags: [CommentTag.CreateComment, CommentTag.DeleteComment, CommentTag.UpdateComment, NiceTag.PostNice],
+      providesTags: [ArticleTags.UpdateArticle, CommentTag.CreateComment, CommentTag.DeleteComment, CommentTag.UpdateComment, NiceTag.PostNice],
     }),
     createArticle: builder.mutation<PostArticleResponse, PostArticleParams>({
       query: (params) => ({
@@ -60,8 +60,9 @@ export const articlesApi = baseApi.injectEndpoints({
           contents: params.contents,
         },
       }),
+      invalidatesTags: [ArticleTags.UpdateArticle],
     }),
   }),
 })
 
-export const { useGetArticlesQuery, useGetArticleDetailQuery, useCreateArticleMutation, useDeleteArticleMutation } = articlesApi
+export const { useGetArticlesQuery, useGetArticleDetailQuery, useCreateArticleMutation, useDeleteArticleMutation, useUpdateArticleMutation } = articlesApi

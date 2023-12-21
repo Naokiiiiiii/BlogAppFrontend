@@ -6,6 +6,7 @@ import { baseUrl } from '@utils/const'
 export enum ArticleTags {
   CreateArticle = 'create_article',
   DeleteArticle = 'delete_article',
+  UpdateArticle = 'update_article',
 }
 
 export enum CommentTag {
@@ -78,6 +79,7 @@ export const baseApi = createApi({
   tagTypes: [
     ArticleTags.CreateArticle,
     ArticleTags.DeleteArticle,
+    ArticleTags.UpdateArticle,
     CommentTag.CreateComment,
     CommentTag.DeleteComment,
     CommentTag.UpdateComment,
