@@ -2,7 +2,7 @@ import { paths } from 'types/api'
 import { ArticleTags, baseApi, CommentTags, KeysToCamelcase, NiceTags } from '../baseApi'
 
 type GetArticleListParams = paths['/article/list']['get']['parameters']['query']
-type GetArticleListResponse = KeysToCamelcase<paths['/article/list']['get']['responses']['200']['content']['application/json']>
+export type GetArticleListResponse = KeysToCamelcase<paths['/article/list']['get']['responses']['200']['content']['application/json']>
 type GetArticleDetailParams = KeysToCamelcase<paths['/article/{article_id}']['get']['parameters']['path']>
 type GetArticleDetailResponse = KeysToCamelcase<paths['/article/{article_id}']['get']['responses']['200']['content']['application/json']>
 type PostArticleParams = KeysToCamelcase<paths['/article']['post']['requestBody']['content']['application/json']>

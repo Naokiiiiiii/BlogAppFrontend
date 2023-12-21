@@ -5,6 +5,7 @@ import { useUpdateArticleMutation } from '@reducers/blogApi/injections/articleAp
 import { FC } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
+import { Article } from 'types/artilce'
 import { InferType, object, string } from 'yup'
 
 const schema = object({
@@ -14,7 +15,11 @@ const schema = object({
 
 type FormData = InferType<typeof schema>
 
-export const UpdateArticle: FC = () => {
+type UpdateArticleProps = {
+  article?: Article
+}
+
+export const UpdateArticle: FC<UpdateArticleProps> = ({ article }) => {
   const { id } = useParams()
   const [updateArticle, isLoading] = useUpdateArticleMutation()
   const navigate = useNavigate()

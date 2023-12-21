@@ -1,3 +1,4 @@
+import { UpdateArticle } from '@components/organisms/updateArticle'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Favorite, FavoriteBorder } from '@mui/icons-material'
 import { Button, CircularProgress, TextField, Typography } from '@mui/material'
@@ -74,7 +75,7 @@ export const ArticleDetail: FC = () => {
   }
 
   const handleClickEditArticle = () => {
-    navigate(`/article/update/${id}`)
+    setIsEdit(true)
   }
 
   const handleClickEditComment = (commentID: number) => {
@@ -105,11 +106,12 @@ export const ArticleDetail: FC = () => {
 
   const isLike = article?.nices?.some((nice) => user?.user_id === nice.user_id)
 
+  const [isEdit, setIsEdit] = useState(false)
+
   return (
     <Box>
-      {isLoading ? (
-        <CircularProgress />
-      ) : (
+      {isLoading && <CircularProgress />}
+      {!isLoading && !isEdit ? (
         <Box>
           <Button onClick={handleClickEditArticle}>編集</Button>
           <Typography>article: {article?.id}</Typography>
@@ -174,6 +176,8 @@ export const ArticleDetail: FC = () => {
             )}
           </Box>
         </Box>
+      ) : (
+        <UpdateArticle article={article} />
       )}
     </Box>
   )
