@@ -1,5 +1,5 @@
 import { paths } from 'types/api'
-import { baseApi, KeysToCamelcase, UserTag } from '../baseApi'
+import { baseApi, KeysToCamelcase, UserTags } from '../baseApi'
 
 type GetUserInfoParams = {}
 type GetUserInfoResponse = paths['/user']['get']['responses']['200']['content']['application/json']
@@ -14,7 +14,7 @@ export const usersApi = baseApi.injectEndpoints({
       query: () => ({
         url: 'user',
       }),
-      providesTags: [UserTag.UpdateUser],
+      providesTags: [UserTags.UpdateUser],
     }),
     updateUserName: builder.mutation<UpdateUserNameResponse, UpdateUserNameParams>({
       query: (params) => ({
@@ -24,7 +24,7 @@ export const usersApi = baseApi.injectEndpoints({
           user_name: params.userName,
         },
       }),
-      invalidatesTags: [UserTag.UpdateUser],
+      invalidatesTags: [UserTags.UpdateUser],
     }),
   }),
 })
