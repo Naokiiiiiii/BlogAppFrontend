@@ -9,17 +9,18 @@ import { Article } from 'types/artilce'
 import { InferType, object, string } from 'yup'
 
 const schema = object({
-  title: string().required('タイトルを入力してください。'),
-  contents: string().required('内容を入力してください。'),
+  title: string(),
+  contents: string(),
 })
 
 type FormData = InferType<typeof schema>
 
 type UpdateArticleProps = {
   article?: Article
+  handleClickEditCansel: () => void
 }
 
-export const UpdateArticle: FC<UpdateArticleProps> = ({ article }) => {
+export const UpdateArticle: FC<UpdateArticleProps> = ({ article, handleClickEditCansel }) => {
   const { id } = useParams()
   const [updateArticle, isLoading] = useUpdateArticleMutation()
   const navigate = useNavigate()
@@ -56,13 +57,16 @@ export const UpdateArticle: FC<UpdateArticleProps> = ({ article }) => {
         name="title"
         control={control}
         render={({ field }) => <TextField {...field} fullWidth label="タイトル" required error={!!errors.title} helperText={errors.title?.message} />}
+        defaultValue={article?.title}
       />
       <Controller
         name="contents"
         control={control}
         render={({ field }) => <TextField {...field} fullWidth label="コンテンツ" required error={!!errors.contents} helperText={errors.contents?.message} />}
+        defaultValue={article?.contents}
       />
-      <Button type="submit">作成</Button>
+      <Button type="submit">更新</Button>
+      <Button onClick={handleClickEditCansel}>キャンセル</Button>
     </Box>
   )
 }
