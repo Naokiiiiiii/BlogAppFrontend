@@ -1,5 +1,5 @@
 import { paths } from 'types/api'
-import { baseApi, CommentTag, KeysToCamelcase } from '../baseApi'
+import { baseApi, CommentTags, KeysToCamelcase } from '../baseApi'
 
 type CreateCommentParams = KeysToCamelcase<paths['/comment']['post']['requestBody']['content']['application/json']>
 type CreateCommentResponse = KeysToCamelcase<paths['/comment']['post']['responses']['200']['content']['application/json']>
@@ -22,14 +22,14 @@ export const commentsApi = baseApi.injectEndpoints({
           message: params.message,
         },
       }),
-      invalidatesTags: [CommentTag.CreateComment],
+      invalidatesTags: [CommentTags.CreateComment],
     }),
     deleteComment: builder.mutation<DeleteCommentResponse, DeleteCommentParams>({
       query: (params) => ({
         url: `comment/${params.commentId}`,
         method: 'DELETE',
       }),
-      invalidatesTags: [CommentTag.DeleteComment],
+      invalidatesTags: [CommentTags.DeleteComment],
     }),
     updateComment: builder.mutation<UpdateCommentResponse, UpdateCommentParams>({
       query: (params) => ({
@@ -39,7 +39,7 @@ export const commentsApi = baseApi.injectEndpoints({
           message: params.message,
         },
       }),
-      invalidatesTags: [CommentTag.UpdateComment],
+      invalidatesTags: [CommentTags.UpdateComment],
     }),
   }),
 })

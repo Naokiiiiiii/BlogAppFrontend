@@ -1,3 +1,4 @@
+import { UpdateArticle } from '@components/organisms/updateArticle'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Favorite, FavoriteBorder } from '@mui/icons-material'
 import { Button, CircularProgress, TextField, Typography } from '@mui/material'
@@ -72,6 +73,14 @@ export const ArticleDetail: FC = () => {
     }
   }
 
+  const handleClickEdit = () => {
+    setIsEdit(true)
+  }
+
+  const handleClickEditCansel = () => {
+    setIsEdit(false)
+  }
+
   const handleClickEditComment = (commentID: number) => {
     setIsCommentEdit(true)
     setEditCommentID(commentID)
@@ -100,17 +109,19 @@ export const ArticleDetail: FC = () => {
 
   const isLike = article?.nices?.some((nice) => user?.user_id === nice.user_id)
 
+  const [isEdit, setIsEdit] = useState(false)
+
   return (
     <Box>
-      {isLoading ? (
-        <CircularProgress />
-      ) : (
+      {isLoading && <CircularProgress />}
+      {!isLoading && !isEdit ? (
         <Box>
+          <Button onClick={handleClickEdit}>編集</Button>
           <Typography>article: {article?.id}</Typography>
           <Typography>title: {article?.title}</Typography>
           <Typography>contents: {article?.contents}</Typography>
-          <Typography>created_at: {article?.createdAt}</Typography>
-          <Typography>updated_at: {article?.updatedAt}</Typography>
+          <Typography>created_at: {article?.created_at}</Typography>
+          <Typography>updated_at: {article?.updated_at}</Typography>
           <Box onClick={handleClickUpdateNice}>{isLike ? <Favorite /> : <FavoriteBorder />}</Box>
           <Box>
             <Box component="form" onSubmit={createCommentHandleSubmit(handleSendComment)}>
@@ -168,6 +179,8 @@ export const ArticleDetail: FC = () => {
             )}
           </Box>
         </Box>
+      ) : (
+        <UpdateArticle article={article} handleClickEditCansel={handleClickEditCansel} />
       )}
     </Box>
   )
