@@ -4,7 +4,7 @@ import { ArticleTags, baseApi, CommentTags, KeysToCamelcase, NiceTags } from '..
 type GetArticleListParams = paths['/article/list']['get']['parameters']['query']
 export type GetArticleListResponse = KeysToCamelcase<paths['/article/list']['get']['responses']['200']['content']['application/json']>
 type GetArticleDetailParams = KeysToCamelcase<paths['/article/{article_id}']['get']['parameters']['path']>
-type GetArticleDetailResponse = KeysToCamelcase<paths['/article/{article_id}']['get']['responses']['200']['content']['application/json']>
+type GetArticleDetailResponse = paths['/article/{article_id}']['get']['responses']['200']['content']['application/json']
 type PostArticleParams = KeysToCamelcase<paths['/article']['post']['requestBody']['content']['application/json']>
 type PostArticleResponse = KeysToCamelcase<paths['/article']['post']['responses']['200']['content']['application/json']>
 type DeleteArticleParams = KeysToCamelcase<paths['/article/{article_id}']['delete']['parameters']['path']>
